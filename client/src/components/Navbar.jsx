@@ -52,7 +52,7 @@ const Navbar = () => {
       <div
         className={`navbar w-full ${
           isSticky
-            ? 'shadow-sm bg-yellow-200 transition-all ease-in-out duration-300'
+            ? 'shadow-sm bg-base-300 transition-all ease-in-out duration-300'
             : ''
         }`}
       >
