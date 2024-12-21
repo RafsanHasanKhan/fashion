@@ -28,7 +28,15 @@ const Products = () => {
     setFilteredItems(products)
   }
 
-  
+  // Search & Suggestions
+  useEffect(()=>{
+    if(searchQuery === '') {
+      setFilteredItems(products)
+    } else {
+      const filtered = products.filter(item => item.name.toLowerCase().includes(searchQuery.toLocaleLowerCase()) )
+      setFilteredItems(filtered)
+    }
+  },[products, searchQuery])
 
   return (
     <section className="section-container px-4 lg:px-0 py-32">
@@ -54,6 +62,7 @@ const Products = () => {
         <div className='flex justify-between items-start'>
           <h2 className="bebas-neue-regular text-5xl">All Products</h2>
           <input
+            onChange={(e)=>setSearchQuery(e.target.value)}
             type="text"
             placeholder="Type here"
             className="input input-bordered input-ghost w-full max-w-xs"
