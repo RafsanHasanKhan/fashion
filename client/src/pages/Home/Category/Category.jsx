@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Category = () => {
   const [manProducts, setMenProducts] = useState([]);
   const [womanProducts, setWomenProducts] = useState([]);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,8 +29,8 @@ const Category = () => {
   }, []);
   return (
     <section className="section-container px-4 lg:px-0">
-      <div className='my-24'>
-        <h2 className='mb-10 bebas-neue-regular text-5xl'>W0Man Jacket</h2>
+      <div className="my-24">
+        <h2 className="mb-10 bebas-neue-regular text-5xl">W0Man Jacket</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-center gap-8">
           {womanProducts.slice(0, 3).map((product, index) => (
             <div key={index} className="card bg-base-100 shadow-xl">
@@ -40,19 +42,29 @@ const Category = () => {
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{product.name}</h2>
-                <p>{product.description}</p>
+                <p
+                  className={`text-gray-600 ${
+                    expanded ? '' : 'line-clamp-1'
+                  } cursor-pointer`}
+                  onClick={() => setExpanded(!expanded)}
+                >
+                  {product.description}
+                </p>
                 <div className="card-actions justify-end">
-                  <button className="btn bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white">
-                    Buy Now
-                  </button>
+                  <Link
+                    className="btn bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white"
+                    to="/products"
+                  >
+                    Order Now
+                  </Link>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-      <div className='my-24'>
-        <h2 className='mb-10 bebas-neue-regular text-5xl'>Man Jacket</h2>
+      <div className="my-24">
+        <h2 className="mb-10 bebas-neue-regular text-5xl">Man Jacket</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-center gap-8">
           {manProducts.slice(0, 3).map((product, index) => (
             <div key={index} className="card bg-base-100 shadow-xl">
@@ -64,11 +76,22 @@ const Category = () => {
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{product.name}</h2>
-                <p>{product.description}</p>
+                <p
+                  className={`text-gray-600 ${
+                    expanded ? '' : 'line-clamp-1'
+                  } cursor-pointer`}
+                  onClick={() => setExpanded(!expanded)}
+                >
+                  {product.description}
+                </p>
+
                 <div className="card-actions justify-end">
-                  <button className="btn bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white">
-                    Buy Now
-                  </button>
+                  <Link
+                    className="btn bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white"
+                    to="/products"
+                  >
+                    Order Now
+                  </Link>
                 </div>
               </div>
             </div>

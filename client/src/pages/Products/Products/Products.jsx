@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
-import { FaFilter } from "react-icons/fa";
+import { FaFilter } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 const Products = () => {
+  const [expanded, setExpanded] = useState(false);
   const [products, setProducts] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [sortOption, setSortOption] = useState('default');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,9 +33,12 @@ const Products = () => {
         ? products
         : products.filter(item => item.category === category);
     setFilteredItems(filtered);
+    setSelectedCategory(category);
   };
   const showAll = () => {
     setFilteredItems(products);
+    setSelectedCategory('all')
+    setCurrentPage(1)
   };
 
   // Search & Suggestions
@@ -44,6 +52,7 @@ const Products = () => {
       );
       setSuggestions(matchingSuggestions.slice(0, 5));
       setFilteredItems(matchingSuggestions);
+      setCurrentPage(1)
     }
   }, [products, searchQuery]);
 
@@ -73,11 +82,18 @@ const Products = () => {
             parseFloat(a.price.replace('$', ''))
         );
         break;
-      default: ;
+      default:
         break;
     }
     setFilteredItems(sortedItems);
+    setCurrentPage(1)
   };
+
+  // pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexofFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredItems.slice(indexofFirstItem, indexOfLastItem);
+  const paginate = pageNumber => setCurrentPage(pageNumber)
 
   return (
     <section className="section-container px-4 lg:px-0 py-32">
@@ -93,9 +109,9 @@ const Products = () => {
             Where Each Plate Weaves a Story of Culinary Mastery and Passionate
             Craftsmanship
           </p>
-          <button className="btn bg-green px-8 py-3 font-semibold hover:text-red rounded-full bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white">
+          <Link to='/cart' className="btn bg-green px-8 py-3 font-semibold hover:text-red rounded-full bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white">
             Order Now
-          </button>
+          </Link>
         </div>
       </div>
       {/* </div> */}
@@ -126,27 +142,26 @@ const Products = () => {
         <div className="flex justify-between items-center mt-10 mb-4">
           {/* all category */}
           <div className="space-x-1 font-medium">
-            <button onClick={showAll} className="rounded px-2 py-1 btn-ghost">
+            <button onClick={showAll} className={`rounded px-2 py-1 btn-ghost ${selectedCategory === 'all' ? 'bg-black text-white hover:text-black': ''}`}>
               All
             </button>
             <button
               onClick={() => filterItems('men')}
-              className="rounded px-2 py-1 btn-ghost"
+              className={`rounded px-2 py-1 btn-ghost ${selectedCategory === 'men' ? 'bg-black text-white hover:text-black': ''}`}
             >
               Men
             </button>
             <button
               onClick={() => filterItems('women')}
-              className="rounded px-2 py-1 btn-ghost"
+              className={`rounded px-2 py-1 btn-ghost ${selectedCategory === 'women' ? 'bg-black text-white hover:text-black': ''}`}
             >
               Woman
             </button>
           </div>
           {/* filter */}
-          <div className='flex justify-center items-center gap-1'>
-          <FaFilter className=' bg-black text-white p-2 rounded text-[37px]'></FaFilter>
+          <div className="flex justify-center items-center gap-1">
+            <FaFilter className=" bg-black text-white p-2 rounded text-[37px]"></FaFilter>
             <select
-              
               onChange={e => handleSortChange(e.target.value)}
               value={sortOption}
               className="bg-black text-white px-2 py-2 rounded cursor-pointer"
@@ -160,7 +175,7 @@ const Products = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-center gap-8">
-          {filteredItems.map((product, index) => (
+          {currentItems.map((product, index) => (
             <div key={index} className="card bg-base-100 shadow-xl">
               <figure>
                 <img
@@ -170,9 +185,17 @@ const Products = () => {
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{product.name}</h2>
-                <p>{product.description}</p>
-                <span>{product.price}</span>
-                <div className="card-actions justify-end">
+                <p
+                  className={`text-gray-600  ${
+                    expanded ? '' : 'line-clamp-1'
+                  } cursor-pointer`}
+                  onClick={() => setExpanded(!expanded)}
+                >
+                  {product.description}
+                </p>
+
+                <div className="flex justify-between items-center mt-4">
+                  <span>{product.price}</span>
                   <button className="btn bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white">
                     Add To Cart
                   </button>
@@ -180,6 +203,16 @@ const Products = () => {
               </div>
             </div>
           ))}
+        </div>
+        {/* pagination */}
+        <div className='my-8 flex items-center justify-center'>
+          {
+            Array.from({
+              length: Math.ceil(filteredItems.length/itemsPerPage)
+            }).map((_, index) => (
+              <button onClick={()=>paginate(index+1)}  key={index + 1} className={`mx-1 px-3 py-1 rounded-full ${currentPage === index + 1 ? 'bg-[#A4BC46] text-white' : 'bg-gray-400'}`}>{index + 1}</button>
+            ))
+          }
         </div>
       </div>
     </section>
