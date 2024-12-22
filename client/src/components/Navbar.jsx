@@ -41,9 +41,9 @@ const Navbar = () => {
         </details>
       </li>
       <li>
-        <button className=" flex md:hidden bg-base-100 text-base font-bold">
+        <Link to='/login' className=" flex md:hidden bg-base-100 text-base font-bold">
           Login
-        </button>
+        </Link>
       </li>
     </>
   );
@@ -114,9 +114,9 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
-          <button className="btn btn-ghost text-base hidden md:flex font-bold">
+          <Link to='/login' className="btn btn-ghost text-base hidden md:flex font-bold">
             Login
-          </button>
+          </Link>
           <div className="dropdown ">
             <div
               tabIndex={0}

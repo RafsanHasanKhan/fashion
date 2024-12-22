@@ -10,7 +10,7 @@ const Products = () => {
   const [sortOption, setSortOption] = useState('default');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(6)
+  const [itemsPerPage] = useState(6);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,8 +37,8 @@ const Products = () => {
   };
   const showAll = () => {
     setFilteredItems(products);
-    setSelectedCategory('all')
-    setCurrentPage(1)
+    setSelectedCategory('all');
+    setCurrentPage(1);
   };
 
   // Search & Suggestions
@@ -52,7 +52,7 @@ const Products = () => {
       );
       setSuggestions(matchingSuggestions.slice(0, 5));
       setFilteredItems(matchingSuggestions);
-      setCurrentPage(1)
+      setCurrentPage(1);
     }
   }, [products, searchQuery]);
 
@@ -86,14 +86,19 @@ const Products = () => {
         break;
     }
     setFilteredItems(sortedItems);
-    setCurrentPage(1)
+    setCurrentPage(1);
   };
 
   // pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexofFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredItems.slice(indexofFirstItem, indexOfLastItem);
-  const paginate = pageNumber => setCurrentPage(pageNumber)
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
+  const handleAddToCart = (product) => {
+    console.log(product.id);
+    
+  }
 
   return (
     <section className="section-container px-4 lg:px-0 py-32">
@@ -109,7 +114,10 @@ const Products = () => {
             Where Each Plate Weaves a Story of Culinary Mastery and Passionate
             Craftsmanship
           </p>
-          <Link to='/cart' className="btn bg-green px-8 py-3 font-semibold hover:text-red rounded-full bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white">
+          <Link
+            to="/cart"
+            className="btn bg-green px-8 py-3 font-semibold hover:text-red rounded-full bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white"
+          >
             Order Now
           </Link>
         </div>
@@ -142,18 +150,33 @@ const Products = () => {
         <div className="flex justify-between items-center mt-10 mb-4">
           {/* all category */}
           <div className="space-x-1 font-medium">
-            <button onClick={showAll} className={`rounded px-2 py-1 btn-ghost ${selectedCategory === 'all' ? 'bg-black text-white hover:text-black': ''}`}>
+            <button
+              onClick={showAll}
+              className={`rounded px-2 py-1 btn-ghost ${
+                selectedCategory === 'all'
+                  ? 'bg-black text-white hover:text-black'
+                  : ''
+              }`}
+            >
               All
             </button>
             <button
               onClick={() => filterItems('men')}
-              className={`rounded px-2 py-1 btn-ghost ${selectedCategory === 'men' ? 'bg-black text-white hover:text-black': ''}`}
+              className={`rounded px-2 py-1 btn-ghost ${
+                selectedCategory === 'men'
+                  ? 'bg-black text-white hover:text-black'
+                  : ''
+              }`}
             >
               Men
             </button>
             <button
               onClick={() => filterItems('women')}
-              className={`rounded px-2 py-1 btn-ghost ${selectedCategory === 'women' ? 'bg-black text-white hover:text-black': ''}`}
+              className={`rounded px-2 py-1 btn-ghost ${
+                selectedCategory === 'women'
+                  ? 'bg-black text-white hover:text-black'
+                  : ''
+              }`}
             >
               Woman
             </button>
@@ -196,7 +219,7 @@ const Products = () => {
 
                 <div className="flex justify-between items-center mt-4">
                   <span>{product.price}</span>
-                  <button className="btn bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white">
+                  <button onClick={()=>handleAddToCart(product)} className="btn bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white">
                     Add To Cart
                   </button>
                 </div>
@@ -205,14 +228,22 @@ const Products = () => {
           ))}
         </div>
         {/* pagination */}
-        <div className='my-8 flex items-center justify-center'>
-          {
-            Array.from({
-              length: Math.ceil(filteredItems.length/itemsPerPage)
-            }).map((_, index) => (
-              <button onClick={()=>paginate(index+1)}  key={index + 1} className={`mx-1 px-3 py-1 rounded-full ${currentPage === index + 1 ? 'bg-[#A4BC46] text-white' : 'bg-gray-400'}`}>{index + 1}</button>
-            ))
-          }
+        <div className="my-8 flex items-center justify-center">
+          {Array.from({
+            length: Math.ceil(filteredItems.length / itemsPerPage),
+          }).map((_, index) => (
+            <button
+              onClick={() => paginate(index + 1)}
+              key={index + 1}
+              className={`mx-1 px-3 py-1 rounded-full ${
+                currentPage === index + 1
+                  ? 'bg-[#A4BC46] text-white'
+                  : 'bg-gray-400'
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
         </div>
       </div>
     </section>
