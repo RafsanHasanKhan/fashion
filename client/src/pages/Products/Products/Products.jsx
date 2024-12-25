@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { FaFilter } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from './../../../hooks/useAuth';
+import useAxiosSecure from './../../../hooks/useAxiosSecure';
 const Products = () => {
   const [expanded, setExpanded] = useState(false);
   const [products, setProducts] = useState([]);
@@ -13,6 +14,8 @@ const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6);
   const {user} = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -99,9 +102,11 @@ const Products = () => {
 
   const handleAddToCart = (product) => {
     
-    // if(user && user.email) {
-
-    // }
+    if(user && user.email) {
+      axiosSecure.post()
+    } else {
+      navigate('/login')
+    }
     
   }
 
