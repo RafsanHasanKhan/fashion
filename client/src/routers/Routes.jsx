@@ -5,6 +5,7 @@ import Products from '../pages/Products/Products/Products';
 import Cart from '../pages/Products/Cart/Cart';
 import SignUp from '../pages/SignUp/SignUp';
 import Login from '../pages/Login/Login';
+import UpdateUserProfile from '../components/UpdateUserProfile';
 const Routes = createBrowserRouter([
   {
     path: '/',
@@ -29,8 +30,12 @@ const Routes = createBrowserRouter([
     element: <SignUp></SignUp>
   },
   {
-    path: 'login',
+    path: '/login',
     element: <Login></Login>
+  },
+  {
+    path: '/updateUserProfile',
+    element: <UpdateUserProfile></UpdateUserProfile>
   }
 ]);
 

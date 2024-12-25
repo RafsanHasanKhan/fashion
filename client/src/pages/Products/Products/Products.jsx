@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FaFilter } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import useAuth from './../../../hooks/useAuth';
 const Products = () => {
   const [expanded, setExpanded] = useState(false);
   const [products, setProducts] = useState([]);
@@ -11,6 +12,7 @@ const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6);
+  const {user} = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -96,7 +98,10 @@ const Products = () => {
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   const handleAddToCart = (product) => {
-    console.log(product.id);
+    
+    // if(user && user.email) {
+
+    // }
     
   }
 

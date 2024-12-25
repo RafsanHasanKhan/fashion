@@ -1,7 +1,10 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import useAuth from '../hooks/useAuth';
+import Profile from './Profile';
 
 const Navbar = () => {
+  const {user} = useAuth();
   const [isSticky, setSticky] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
@@ -47,6 +50,7 @@ const Navbar = () => {
       </li>
     </>
   );
+
   return (
     <div className="section-container fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out z-50">
       <div
@@ -114,9 +118,11 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
-          <Link to='/login' className="btn btn-ghost text-base hidden md:flex font-bold">
+          {
+            user? <Profile></Profile> : <Link to='/login' className="btn btn-ghost text-base hidden md:flex font-bold">
             Login
           </Link>
+          }
           <div className="dropdown ">
             <div
               tabIndex={0}

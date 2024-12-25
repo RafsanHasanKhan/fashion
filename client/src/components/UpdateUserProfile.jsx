@@ -1,33 +1,39 @@
-import { IoMdClose } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+import { IoMdClose } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
-import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
-const Login = () => {
+const UpdateUserProfile = () => {
+  const { userUpdateProfile } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { loginUser } = useAuth();
   const onSubmit = async data => {
-    const { email, password } = data;
+    const { name, photoURL } = data;
     try {
-      const res = await loginUser(email, password);
-      console.log(res);
+      await userUpdateProfile(name, photoURL);
       Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'Login Successful',
-        text: 'You have successfully logged into your account.',
+        title: 'Profile Updated',
+        text: 'Your profile information has been updated successfully.',
         showConfirmButton: false,
         timer: 2000,
       });
     } catch (error) {
       console.error(error);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Update Failed',
+        text: 'There was an error updating your profile. Please try again.',
+        showConfirmButton: false,
+        timer: 2000,
+      });
     }
   };
-
   return (
     <div>
       <Link to="/" className="flex justify-end p-4">
@@ -36,45 +42,36 @@ const Login = () => {
       <div className="section-container ">
         <div className="flex justify-center items-center my-32">
           <div className="card bg-base-300 w-full max-w-sm shrink-0 shadow-2xl">
-            <div className="ml-8 mt-8">
-              <h2 className="text-2xl">Log In</h2>
+            <div className=" mt-8">
+              <h2 className="text-2xl text-center">Update Profile</h2>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+            <form onSubmit={handleSubmit(onSubmit)} className="card-body mb-8">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Email</span>
+                  <span className="label-text">Name</span>
                 </label>
                 <input
-                  type="email"
-                  placeholder="email"
+                  type="text"
+                  placeholder="Name"
                   className="input input-bordered"
                   required
-                  {...register('email', { required: true })}
+                  {...register('name', { required: true })}
                 />
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text">Photo URL</span>
                 </label>
                 <input
-                  type="password"
-                  placeholder="password"
+                  type="text"
+                  placeholder="photoURL"
                   className="input input-bordered"
                   required
-                  {...register('password', { required: true })}
+                  {...register('photoURL', { required: true })}
                 />
               </div>
               <div className="form-control mt-6">
-                <button className="btn bg-gray-300">Login</button>
-              </div>
-              <div className="mt-4 ml-1">
-                <p>
-                  Don’t have an account?{' '}
-                  <Link to="/signup" className="btn-ghost">
-                    Create one now
-                  </Link>
-                  .
-                </p>
+                <button className="btn bg-gray-300">Update Profile</button>
               </div>
             </form>
           </div>
@@ -84,4 +81,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default UpdateUserProfile;
