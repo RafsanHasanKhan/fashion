@@ -3,6 +3,8 @@ import { FaFilter } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from './../../../hooks/useAuth';
 import useAxiosSecure from './../../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
+import useCarts from '../../../hooks/useCarts';
 const Products = () => {
   const [expanded, setExpanded] = useState(false);
   const [products, setProducts] = useState([]);
@@ -13,14 +15,15 @@ const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6);
-  const {user} = useAuth();
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+  const [, refetch] = useCarts()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('products.json');
+        const response = await fetch('http://localhost:5000/products');
         const result = await response.json();
         setProducts(result);
         setFilteredItems(result);
@@ -39,6 +42,7 @@ const Products = () => {
         : products.filter(item => item.category === category);
     setFilteredItems(filtered);
     setSelectedCategory(category);
+    setCurrentPage(1);
   };
   const showAll = () => {
     setFilteredItems(products);
@@ -65,32 +69,36 @@ const Products = () => {
   const handleSortChange = option => {
     setSortOption(option);
     let sortedItems = [...filteredItems];
-    // logic
-    switch (option) {
-      case 'A-Z':
-        sortedItems.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case 'Z-A':
-        sortedItems.sort((a, b) => b.name.localeCompare(a.name));
-        break;
-      case 'low-to-high':
-        sortedItems.sort(
-          (a, b) =>
-            parseFloat(a.price.replace('$', '')) -
-            parseFloat(b.price.replace('$', ''))
-        );
-        break;
-      case 'high-to-low':
-        sortedItems.sort(
-          (a, b) =>
-            parseFloat(b.price.replace('$', '')) -
-            parseFloat(a.price.replace('$', ''))
-        );
-        break;
-      default:
-        break;
+    if (option === 'default') {
+      setFilteredItems(products);
+    } else {
+      // logic
+      switch (option) {
+        case 'A-Z':
+          sortedItems.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case 'Z-A':
+          sortedItems.sort((a, b) => b.name.localeCompare(a.name));
+          break;
+        case 'low-to-high':
+          sortedItems.sort(
+            (a, b) =>
+              parseFloat(a.price.replace('$', '')) -
+              parseFloat(b.price.replace('$', ''))
+          );
+          break;
+        case 'high-to-low':
+          sortedItems.sort(
+            (a, b) =>
+              parseFloat(b.price.replace('$', '')) -
+              parseFloat(a.price.replace('$', ''))
+          );
+          break;
+        default:
+          break;
+      }
+      setFilteredItems(sortedItems);
     }
-    setFilteredItems(sortedItems);
     setCurrentPage(1);
   };
 
@@ -100,15 +108,60 @@ const Products = () => {
   const currentItems = filteredItems.slice(indexofFirstItem, indexOfLastItem);
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
-  const handleAddToCart = (product) => {
-    
-    if(user && user.email) {
-      axiosSecure.post()
+  const handleAddToCart = product => {
+    const { _id, name, image, price } = product;
+    if (user && user.email) {
+      const cartItem = {
+        productItemId: _id,
+        name,
+        quantity: 1,
+        image,
+        price,
+        email: user.email,
+      };
+      axiosSecure
+        .post('/carts', cartItem)
+        .then(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Product added to cart!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          refetch()
+        })
+        .catch(() => {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'This product is already in your cart!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
     } else {
-      navigate('/login')
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You are not logged in. Please log in to continue.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Log In',
+      }).then(result => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'Redirecting...',
+            text: 'You are being redirected to the login page.',
+            icon: 'info',
+          });
+          // Add your redirection logic here, e.g., window.location.href = "/login";
+          navigate('/login');
+        }
+      });
     }
-    
-  }
+  };
 
   return (
     <section className="section-container px-4 lg:px-0 py-32">
@@ -228,8 +281,11 @@ const Products = () => {
                 </p>
 
                 <div className="flex justify-between items-center mt-4">
-                  <span>{product.price}</span>
-                  <button onClick={()=>handleAddToCart(product)} className="btn bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white">
+                  <span>${product.price}</span>
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    className="btn bg-gradient-to-b from-[#A4BC46] from-[0%] to-[#85A019] to-[100%] text-white"
+                  >
                     Add To Cart
                   </button>
                 </div>

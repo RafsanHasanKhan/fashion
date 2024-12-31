@@ -4,7 +4,7 @@
     "category": "men",
     "name": "Yellow Coat Jacket",
     "description": "A stylish yellow coat jacket, perfect for chilly evenings.",
-    "price": "$234",
+    "price": 234,
     "image": "https://via.placeholder.com/200x300?text=Yellow+Coat+Jacket"
   },
   {
@@ -12,7 +12,7 @@
     "category": "men",
     "name": "Classic Denim Jeans",
     "description": "Comfortable and durable classic denim jeans for everyday wear.",
-    "price": "$99",
+    "price": 99,
     "image": "https://via.placeholder.com/200x300?text=Classic+Denim+Jeans"
   },
   {
@@ -20,7 +20,7 @@
     "category": "men",
     "name": "Leather Boots",
     "description": "Premium leather boots for a rugged yet sophisticated look.",
-    "price": "$199",
+    "price": 199,
     "image": "https://via.placeholder.com/200x300?text=Leather+Boots"
   },
   {
@@ -28,7 +28,7 @@
     "category": "men",
     "name": "Black Formal Blazer",
     "description": "Perfect for business meetings or formal events.",
-    "price": "$299",
+    "price": 299,
     "image": "https://via.placeholder.com/200x300?text=Black+Formal+Blazer"
   },
   {
@@ -36,7 +36,7 @@
     "category": "men",
     "name": "White Cotton T-Shirt",
     "description": "Soft and breathable cotton t-shirt for casual wear.",
-    "price": "$25",
+    "price": 25,
     "image": "https://via.placeholder.com/200x300?text=White+Cotton+T-Shirt"
   },
   {
@@ -44,7 +44,7 @@
     "category": "men",
     "name": "Sports Watch",
     "description": "Water-resistant sports watch with multiple features.",
-    "price": "$150",
+    "price": 150,
     "image": "https://via.placeholder.com/200x300?text=Sports+Watch"
   },
   {
@@ -52,7 +52,7 @@
     "category": "men",
     "name": "Running Sneakers",
     "description": "Lightweight and durable running sneakers.",
-    "price": "$110",
+    "price": 110,
     "image": "https://via.placeholder.com/200x300?text=Running+Sneakers"
   },
   {
@@ -60,7 +60,7 @@
     "category": "men",
     "name": "Casual Hoodie",
     "description": "Soft and stylish hoodie for a laid-back vibe.",
-    "price": "$70",
+    "price": 70,
     "image": "https://via.placeholder.com/200x300?text=Casual+Hoodie"
   },
   {
@@ -68,7 +68,7 @@
     "category": "men",
     "name": "Wool Overcoat",
     "description": "Classic wool overcoat to keep you warm and fashionable.",
-    "price": "$350",
+    "price": 350,
     "image": "https://via.placeholder.com/200x300?text=Wool+Overcoat"
   },
   {
@@ -76,7 +76,7 @@
     "category": "men",
     "name": "Canvas Backpack",
     "description": "Durable canvas backpack for everyday use.",
-    "price": "$60",
+    "price": 60,
     "image": "https://via.placeholder.com/200x300?text=Canvas+Backpack"
   },
   {
@@ -84,7 +84,7 @@
     "category": "men",
     "name": "Grey Sweatpants",
     "description": "Comfortable sweatpants for lounging or workouts.",
-    "price": "$45",
+    "price": 45,
     "image": "https://via.placeholder.com/200x300?text=Grey+Sweatpants"
   },
   {
@@ -92,7 +92,7 @@
     "category": "men",
     "name": "Wristband",
     "description": "Stylish leather wristband to enhance your look.",
-    "price": "$25",
+    "price": 25,
     "image": "https://via.placeholder.com/200x300?text=Wristband"
   },
   {
@@ -100,7 +100,7 @@
     "category": "men",
     "name": "Summer Shorts",
     "description": "Breathable shorts for casual summer wear.",
-    "price": "$40",
+    "price": 40,
     "image": "https://via.placeholder.com/200x300?text=Summer+Shorts"
   },
   {
@@ -108,7 +108,7 @@
     "category": "men",
     "name": "Graphic T-Shirt",
     "description": "Trendy t-shirt with a cool graphic print.",
-    "price": "$30",
+    "price": 30,
     "image": "https://via.placeholder.com/200x300?text=Graphic+T-Shirt"
   },
   {
@@ -116,7 +116,7 @@
     "category": "men",
     "name": "Baseball Cap",
     "description": "Adjustable baseball cap for sunny days.",
-    "price": "$20",
+    "price": 20,
     "image": "https://via.placeholder.com/200x300?text=Baseball+Cap"
   },
   {
@@ -124,7 +124,7 @@
     "category": "women",
     "name": "Floral Summer Dress",
     "description": "Light and breezy floral dress for summer outings.",
-    "price": "$129",
+    "price": 129,
     "image": "https://via.placeholder.com/200x300?text=Floral+Summer+Dress"
   },
   {
@@ -132,7 +132,7 @@
     "category": "women",
     "name": "Elegant Evening Gown",
     "description": "An elegant evening gown that makes you stand out at any event.",
-    "price": "$350",
+    "price": 350,
     "image": "https://via.placeholder.com/200x300?text=Elegant+Evening+Gown"
   },
   {
@@ -140,7 +140,7 @@
     "category": "women",
     "name": "Silk Scarf",
     "description": "Luxurious silk scarf to elevate your outfit.",
-    "price": "$45",
+    "price": 45,
     "image": "https://via.placeholder.com/200x300?text=Silk+Scarf"
   },
   {
@@ -148,7 +148,7 @@
     "category": "women",
     "name": "Winter Boots",
     "description": "Sturdy and warm boots for the winter season.",
-    "price": "$130",
+    "price": 130,
     "image": "https://via.placeholder.com/200x300?text=Winter+Boots"
   },
   {
@@ -156,7 +156,7 @@
     "category": "women",
     "name": "Lace Blouse",
     "description": "Beautiful lace blouse perfect for formal occasions.",
-    "price": "$80",
+    "price": 80,
     "image": "https://via.placeholder.com/200x300?text=Lace+Blouse"
   }
 ]

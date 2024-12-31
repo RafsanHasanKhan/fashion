@@ -16,5 +16,11 @@ app.use(express.json()); // Parse JSON requests
 // Connect to MongoDB
 connectDB();
 
+// import routes
+const productRouters = require('./api/routes/productRoutes');
+const cartRouters = require('./api/routes/cartRoutes');
+app.use('/carts', cartRouters);
+app.use('/products', productRouters);
+
 // Export the app
 module.exports = app;
