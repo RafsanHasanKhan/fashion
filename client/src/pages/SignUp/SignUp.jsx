@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 const SignUp = () => {
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -13,20 +15,30 @@ const SignUp = () => {
   const { createUser, userUpdateProfile } = useAuth();
 
   const onSubmit = async data => {
-    const { name, photoURL, email, password } = data;
+    const { photoURL, email, password } = data;
 
     try {
       const res = await createUser(email, password);
-      await userUpdateProfile(name, photoURL);
+      await userUpdateProfile(email, photoURL);
+      const userInfo = {
+        name: data.name,
+        email: data.email
+      }
+      axiosPublic.post('/users', userInfo)
+        .then((res) => {
+          console.log(res);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Signup Successful',
+            text: 'Your account has been created successfully.',
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        })
+      
       console.log('User created:', res); // Access the user object here
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Signup Successful',
-        text: 'Your account has been created successfully.',
-        showConfirmButton: false,
-        timer: 2000,
-      });
+      
     } catch (error) {
       console.error('Error creating user:', error);
     }

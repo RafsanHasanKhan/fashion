@@ -6,6 +6,9 @@ import Cart from '../pages/Products/Cart/Cart';
 import SignUp from '../pages/SignUp/SignUp';
 import Login from '../pages/Login/Login';
 import UpdateUserProfile from '../components/UpdateUserProfile';
+import DashboardLayout from '../layouts/DashboardLayout';
+import Dashboard from '../pages/dashboard/Dashboard';
+import Users from '../pages/dashboard/admin/Users';
 const Routes = createBrowserRouter([
   {
     path: '/',
@@ -36,6 +39,20 @@ const Routes = createBrowserRouter([
   {
     path: '/updateUserProfile',
     element: <UpdateUserProfile></UpdateUserProfile>
+  },
+  {
+    path: 'dashboard',
+    element: <DashboardLayout></DashboardLayout>,
+    children: [
+      {
+        path: '',
+        element: <Dashboard></Dashboard>
+      },
+      {
+        path: 'users',
+        element: <Users></Users>
+      }
+    ]
   }
 ]);
 

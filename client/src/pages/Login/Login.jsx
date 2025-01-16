@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 const Login = () => {
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -14,15 +16,27 @@ const Login = () => {
     const { email, password } = data;
     try {
       const res = await loginUser(email, password);
+      const user = res.user;
+      console.log(user);
+      if (user) {
+        const userInfo = {
+          name: data.name,
+          email: data.email,
+        };
+        axiosPublic.post('/users', userInfo).then(res => {
+          console.log(res);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Signup Successful',
+            text: 'Your account has been created successfully.',
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        });
+      }
       console.log(res);
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Login Successful',
-        text: 'You have successfully logged into your account.',
-        showConfirmButton: false,
-        timer: 2000,
-      });
+      
     } catch (error) {
       console.error(error);
     }

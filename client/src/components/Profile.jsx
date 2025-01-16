@@ -59,6 +59,12 @@ const Profile = () => {
               <Link to="/updateUserProfile">Profile</Link>
             </li>
             <li>
+              <Link to="/order">Order</Link>
+            </li>
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li>
               <button onClick={() => handleLogout()}>Logout</button>
             </li>
           </ul>
