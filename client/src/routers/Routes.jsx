@@ -7,8 +7,11 @@ import SignUp from '../pages/SignUp/SignUp';
 import Login from '../pages/Login/Login';
 import UpdateUserProfile from '../components/UpdateUserProfile';
 import DashboardLayout from '../layouts/DashboardLayout';
-import Dashboard from '../pages/dashboard/Dashboard';
+
 import Users from '../pages/dashboard/admin/Users';
+import Dashboard from '../pages/dashboard/admin/Dashboard';
+import AddMenu from '../pages/dashboard/admin/AddMenu';
+import ManageItems from '../pages/dashboard/admin/ManageItems';
 const Routes = createBrowserRouter([
   {
     path: '/',
@@ -30,15 +33,15 @@ const Routes = createBrowserRouter([
   },
   {
     path: '/signUp',
-    element: <SignUp></SignUp>
+    element: <SignUp></SignUp>,
   },
   {
     path: '/login',
-    element: <Login></Login>
+    element: <Login></Login>,
   },
   {
     path: '/updateUserProfile',
-    element: <UpdateUserProfile></UpdateUserProfile>
+    element: <UpdateUserProfile></UpdateUserProfile>,
   },
   {
     path: 'dashboard',
@@ -46,14 +49,22 @@ const Routes = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Dashboard></Dashboard>
+        element: <Dashboard></Dashboard>,
       },
       {
         path: 'users',
-        element: <Users></Users>
-      }
-    ]
-  }
+        element: <Users></Users>,
+      },
+      {
+        path: 'addMenu',
+        element: <AddMenu></AddMenu>,
+      },
+      {
+        path: 'manageItems',
+        element: <ManageItems></ManageItems>
+      },
+    ],
+  },
 ]);
 
 export default Routes;

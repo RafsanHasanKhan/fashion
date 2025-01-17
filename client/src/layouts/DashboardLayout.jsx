@@ -8,8 +8,8 @@ import useAuth from "../hooks/useAuth";
 const sharedLinks = (
   <>
     <li className="mt-3">
-      <Link to="/dashboard">
-        <MdDashboard /> Dashboard
+      <Link to="/">
+        <MdDashboard /> Home
       </Link>
     </li>
     <li>
@@ -86,12 +86,12 @@ const DashboardLayout = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/dashboard">
+                    <Link to="/dashboard/addMenu">
                       <FaPlusCircle /> Add Product
                     </Link>
                   </li>
                   <li>
-                    <Link to="/dashboard">
+                    <Link to="/dashboard/manageItems">
                       <FaEdit /> Manage Items
                     </Link>
                   </li>
