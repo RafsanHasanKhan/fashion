@@ -12,6 +12,7 @@ import Users from '../pages/dashboard/admin/Users';
 import Dashboard from '../pages/dashboard/admin/Dashboard';
 import AddMenu from '../pages/dashboard/admin/AddProduct';
 import ManageItems from '../pages/dashboard/admin/ManageItems';
+import UpdateProduct from '../pages/dashboard/admin/UpdateProduct';
 const Routes = createBrowserRouter([
   {
     path: '/',
@@ -62,6 +63,11 @@ const Routes = createBrowserRouter([
       {
         path: 'manageItems',
         element: <ManageItems></ManageItems>,
+      },
+      {
+        path: 'updateProduct/:id',
+        element: <UpdateProduct></UpdateProduct>,
+        loader:({params}) => fetch(`http://localhost:5000/products/${params.id}`)
       },
     ],
   },

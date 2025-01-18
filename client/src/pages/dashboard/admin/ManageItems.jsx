@@ -40,7 +40,7 @@ const ManageItems = () => {
       {/* Menu Item Table */}
       <div>
         <div className="overflow-x-auto">
-          <table className="table">
+          <table className="table md:w-[870px]">
             {/* head */}
             <thead>
               <tr>
