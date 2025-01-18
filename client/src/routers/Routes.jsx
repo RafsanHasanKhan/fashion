@@ -10,7 +10,7 @@ import DashboardLayout from '../layouts/DashboardLayout';
 
 import Users from '../pages/dashboard/admin/Users';
 import Dashboard from '../pages/dashboard/admin/Dashboard';
-import AddMenu from '../pages/dashboard/admin/AddMenu';
+import AddMenu from '../pages/dashboard/admin/AddProduct';
 import ManageItems from '../pages/dashboard/admin/ManageItems';
 const Routes = createBrowserRouter([
   {
@@ -61,7 +61,7 @@ const Routes = createBrowserRouter([
       },
       {
         path: 'manageItems',
-        element: <ManageItems></ManageItems>
+        element: <ManageItems></ManageItems>,
       },
     ],
   },

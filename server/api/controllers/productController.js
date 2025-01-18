@@ -28,13 +28,27 @@ const postProductItem = async (req, res) => {
   console.log(newItem);
   try {
     const result = await Product.create(newItem);
-    res.status(200).json(result)
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ message: 'Internal Server Error' });
   }
-}
+};
 
+const deleteProductItem = async (req, res) => {
+  const productId = req.params.id;
+  console.log(productId);
+  try {
+    const deletedProduct = await Product.findByIdAndDelete(productId);
+    if (!deletedProduct) {
+      return res.status(404).json({ message: 'product not found' });
+    }
+    res.status(200).json({ message: 'Product item deleted successfully' });
+  } catch (error) {
+    console.log(error);
+  }
+};
 module.exports = {
   getAllProductItems,
   postProductItem,
+  deleteProductItem,
 };

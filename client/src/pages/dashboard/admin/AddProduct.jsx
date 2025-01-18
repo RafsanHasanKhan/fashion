@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
-import useAxiosPublic from './../../../hooks/useAxiosPublic';
-import useAxiosSecure from './../../../hooks/useAxiosSecure';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
-const AddMenu = () => {
+const AddProduct = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const { register, handleSubmit, reset } = useForm();
@@ -10,16 +10,13 @@ const AddMenu = () => {
   // image hosting key
   const imageHostingKey = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 
-
-
-
   const imageHostingApi = `https://api.imgbb.com/1/upload?&key=${imageHostingKey}`;
   const onSubmit = async data => {
     const imageFile = { image: data.image[0] };
     const hostingImg = await axiosPublic.post(imageHostingApi, imageFile, {
       headers: {
-        'content-type': 'multipart/form-data'
-      }
+        'content-type': 'multipart/form-data',
+      },
     });
     console.log(hostingImg);
 
@@ -35,22 +32,22 @@ const AddMenu = () => {
 
       const postProductItem = axiosSecure.post('/products', productItem);
       if (postProductItem) {
-        reset()
+        reset();
         Swal.fire({
           position: 'top-end',
           icon: 'success',
           title: 'Your Item is inserted successfully!',
           showConfirmButton: false,
-          timer: 1500
-        })
+          timer: 1500,
+        });
       }
     }
-  }
+  };
 
   return (
     <div className="w-full md:w-[870px] px-4 mx-auto">
       <h2 className="text-2xl font-semibold my-4">
-        Upload A New <span className="text-green-500">Menu Item</span>
+        Upload A New <span className="text-green-500">Product Item</span>
       </h2>
 
       {/* form here */}
@@ -122,4 +119,4 @@ const AddMenu = () => {
   );
 };
 
-export default AddMenu;
+export default AddProduct;
